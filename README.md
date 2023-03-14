@@ -36,6 +36,68 @@ Customer churn merupakan jumlah dari hilangnya pelanggan yang menggunakan layana
   * Monthly Charges : Berisi nilai pembayaran pelanggan setiap bulan
   * Total Charges : Berisi nilai total pembayaran pelanggan
   * Churn : Yes/No
+  
+## Data Preparation & Pre-Processing
+
+* Import seluruh library yang akan digunakan, library dapat dilihat pada [file](https://github.com/naomiachoo/data-science-project-one-voice/blob/main/Script/2.%20Library/library.ipynb) ini.
+ * Library yang digunakan adalah : 
+   * [numpy](https://numpy.org/)
+   * [pandas](https://pandas.pydata.org/docs/index.html)
+   * [matplotlib](https://matplotlib.org/)
+   * [seaborn](https://seaborn.pydata.org/)
+   * [math](https://docs.python.org/3/library/math.html)
+   * [sklearn](https://scikit-learn.org/stable/)
+   
+* [Data Reading](https://github.com/naomiachoo/data-science-project-one-voice/blob/main/Script/3.%20Data-Reading/data-reading.ipynb)
+
+Data yang akan digunakan adalah dataset Telco Customer Churn, dapat diakses pada [file](https://github.com/naomiachoo/data-science-project-one-voice/blob/main/Dataset/Dataset10_Telco_Churn.csv) ini. Gunakan kode berikut untuk membaca data.
+
+```ruby 
+telco_data = pd.read_csv('https://raw.githubusercontent.com/naomiachoo/data-science-project-one-voice/main/Dataset/Dataset10_Telco_Churn.csv?token=GHSAT0AAAAAAB7V33L5YKO3DRSKO5FMSSXYZAHIOJQ')
+telco_data.head()
+```
+```output```
+
+![image](https://user-images.githubusercontent.com/70925629/225082263-26748564-071e-4e27-9ae6-828c9fc97b96.png)
+
+* [Data Preparation](https://github.com/naomiachoo/data-science-project-one-voice/blob/main/Script/4.%20Data-Preparation/data_preparation.ipynb)
+
+Pada bagian ini akan dilakukan pemeriksaan pada tipe data dari setiap kolom, apakah sesuai atau tidak dengan isi data nya. 
+
+```ruby
+#check columns data type
+data_type = pd.DataFrame(telco_data.dtypes).T.rename(index={0:'Columns Type'})
+data_type
+```
+
+```output```
+
+![image](https://user-images.githubusercontent.com/70925629/225084520-fa3c4c1c-b72d-4e67-a395-27df26ff1119.png)
+
+Pada data ini ditemukan bahwa kolom ```TotalCharges``` memiliki tipe data object padahal data nya berupa angka-angka desimal, oleh sebab itu perlu dilakukan konversi ke tipe data numerikal yaitu float.
+
+Namun sebelum melakukan konversi, perlu dilakukan lagi pemeriksaan pada setiap data apakah setiap angka desimal memiliki koma atau titik. Karena apabila yang digunakan pada data adalah koma, maka akan sulit untuk melakukan konversi. Pemeriksaan dan pengubahan  dapat dilakukan dengan kode berikut menggunakan fungsi ```replacee```
+
+
+```ruby
+#function to replace number separator
+def replacee(s):
+    i=str(s).find(',')
+    if(i>0):
+        return s[:i] + '.' + s[i+1:]
+    else :
+        return s
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
